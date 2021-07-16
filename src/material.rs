@@ -70,10 +70,10 @@ pub enum AiShadingMode {
 
 bitflags! {
     #[repr(C)]
-    flags AiTextureFlags: c_uint {
-        const AITEXTUREFLAG_INVERT = 0x1,
-        const AITEXTUREFLAG_USE_ALPHA = 0x2,
-        const AITEXTUREFLAG_IGNORE_ALPHA = 0x4
+    struct AiTextureFlags: c_uint {
+        const AITEXTUREFLAG_INVERT = 0x1;
+        const AITEXTUREFLAG_USE_ALPHA = 0x2;
+        const AITEXTUREFLAG_IGNORE_ALPHA = 0x4;
     }
 }
 

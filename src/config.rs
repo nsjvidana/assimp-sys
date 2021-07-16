@@ -84,29 +84,29 @@ define_properties! {
 
 bitflags! {
     #[repr(C)]
-    flags AiComponent: c_uint {
-        const AICOMPONENT_NORMALS = 0x2,
-        const AICOMPONENT_TANGENTS_AND_BITANGENTS = 0x4,
-        const AICOMPONENT_COLORS = 0x8,
-        const AICOMPONENT_TEXCOORDS = 0x10,
-        const AICOMPONENT_BONE_WEIGHTS = 0x20,
-        const AICOMPONENT_ANIMATIONS = 0x40,
-        const AICOMPONENT_TEXTURES = 0x80,
-        const AICOMPONENT_LIGHTS = 0x100,
-        const AICOMPONENT_CAMERAS = 0x200,
-        const AICOMPONENT_MESHES = 0x400,
-        const AICOMPONENT_MATERIALS = 0x800
+    struct AiComponent: c_uint {
+        const AICOMPONENT_NORMALS = 0x2;
+        const AICOMPONENT_TANGENTS_AND_BITANGENTS = 0x4;
+        const AICOMPONENT_COLORS = 0x8;
+        const AICOMPONENT_TEXCOORDS = 0x10;
+        const AICOMPONENT_BONE_WEIGHTS = 0x20;
+        const AICOMPONENT_ANIMATIONS = 0x40;
+        const AICOMPONENT_TEXTURES = 0x80;
+        const AICOMPONENT_LIGHTS = 0x100;
+        const AICOMPONENT_CAMERAS = 0x200;
+        const AICOMPONENT_MESHES = 0x400;
+        const AICOMPONENT_MATERIALS = 0x800;
     }
 }
 
 bitflags! {
     #[repr(C)]
-    flags AiUVTransformFlags : c_uint {
-        const AI_UVTRAFO_SCALING = 0x1,
-        const AI_UVTRAFO_ROTATION = 0x2,
-        const AI_UVTRAFO_TRANSLATION = 0x4,
-        const AI_UVTRAFO_ALL = AI_UVTRAFO_SCALING.bits
-                             | AI_UVTRAFO_ROTATION.bits
-                             | AI_UVTRAFO_TRANSLATION.bits
+    struct AiUVTransformFlags : c_uint {
+        const AI_UVTRAFO_SCALING = 0x1;
+        const AI_UVTRAFO_ROTATION = 0x2;
+        const AI_UVTRAFO_TRANSLATION = 0x4;
+        const AI_UVTRAFO_ALL = Self::AI_UVTRAFO_SCALING.bits
+                             | Self::AI_UVTRAFO_ROTATION.bits
+                             | Self::AI_UVTRAFO_TRANSLATION.bits;
     }
 }

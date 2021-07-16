@@ -32,11 +32,11 @@ pub struct AiBone {
 
 bitflags! {
     #[repr(C)]
-    flags AiPrimitiveType: c_uint {
-        const AIPRIMITIVETYPE_POINT = 0x1,
-        const AIPRIMITIVETYPE_LINE = 0x2,
-        const AIPRIMITIVETYPE_TRIANGLE = 0x4,
-        const AIPRIMITIVETYPE_POLYGON = 0x8
+    struct AiPrimitiveType: c_uint {
+        const AIPRIMITIVETYPE_POINT = 0x1;
+        const AIPRIMITIVETYPE_LINE = 0x2;
+        const AIPRIMITIVETYPE_TRIANGLE = 0x4;
+        const AIPRIMITIVETYPE_POLYGON = 0x8;
     }
 }
 

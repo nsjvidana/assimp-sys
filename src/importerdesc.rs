@@ -2,12 +2,12 @@ use libc::{c_char, c_uint};
 
 bitflags! {
     #[repr(C)]
-    flags AiImporterFlags: c_uint {
-        const AIIMPORTERFLAG_SUPPORT_TEXT_FLAVOUR = 0x1,
-        const AIIMPORTERFLAG_SUPPORT_BINARY_FLAVOUR = 0x2,
-        const AIIMPORTERFLAG_SUPPORT_COMPRESSED_FLAVOUR = 0x4,
-        const AIIMPORTERFLAG_LIMITED_SUPPORT = 0x8,
-        const AIIMPORTERFLAG_EXPERIMENTAL = 0x10
+    pub struct AiImporterFlags: c_uint {
+        const AIIMPORTERFLAG_SUPPORT_TEXT_FLAVOUR = 0x1;
+        const AIIMPORTERFLAG_SUPPORT_BINARY_FLAVOUR = 0x2;
+        const AIIMPORTERFLAG_SUPPORT_COMPRESSED_FLAVOUR = 0x4;
+        const AIIMPORTERFLAG_LIMITED_SUPPORT = 0x8;
+        const AIIMPORTERFLAG_EXPERIMENTAL = 0x10;
     }
 }
 
