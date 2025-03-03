@@ -1,6 +1,6 @@
 use libc::{c_char, size_t};
 
-use types::*;
+use crate::types::*;
 
 // AiFile Callbacks
 pub type AiFileWriteProc =

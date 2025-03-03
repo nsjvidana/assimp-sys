@@ -1,9 +1,9 @@
 use libc::{c_char, c_void, size_t};
 
-use cfileio::*;
-use postprocess::*;
-use scene::*;
-use types::*;
+use crate::cfileio::*;
+use crate::postprocess::*;
+use crate::scene::*;
+use crate::types::*;
 
 #[repr(C)]
 pub struct AiExportFormatDesc {
@@ -20,7 +20,7 @@ pub struct AiExportDataBlob {
     pub next: *mut AiExportDataBlob
 }
 
-#[link(name = "assimp")]
+#[link(name = "assimpd")]
 extern {
     pub fn aiGetExportFormatCount() -> size_t;
     pub fn aiGetExportFormatDescription(index: size_t) -> *const AiExportFormatDesc;

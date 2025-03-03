@@ -1,6 +1,6 @@
 use libc::{c_char, c_float, c_int, c_uint};
 
-use types::*;
+use crate::types::*;
 
 pub static AI_DEFAULT_MATERIAL_NAME: &'static str = "DefaultMaterial";
 
@@ -118,7 +118,7 @@ pub struct AiMaterial {
     pub num_allocated: c_uint
 }
 
-#[link(name = "assimp")]
+#[link(name = "assimpd")]
 extern {
     pub fn aiGetMaterialProperty(
         mat: *const AiMaterial,

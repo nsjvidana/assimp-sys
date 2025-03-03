@@ -1,9 +1,9 @@
 use libc::{c_char, c_float, c_int, c_uint, c_void};
 
-use cfileio::*;
-use postprocess::*;
-use scene::*;
-use types::*;
+use crate::cfileio::*;
+use crate::postprocess::*;
+use crate::scene::*;
+use crate::types::*;
 
 pub type AiLogStreamCallback = Option<unsafe extern "system" fn(*const c_char, *mut c_char)>;
 
@@ -23,7 +23,7 @@ pub type AiBool = c_int;
 pub const AI_FALSE : AiBool = 0;
 pub const AI_TRUE : AiBool = 1;
 
-#[link(name = "assimp")]
+#[link(name = "assimpd")]
 extern {
     pub fn aiImportFile(
         file: *const c_char,
@@ -46,7 +46,7 @@ extern {
         flags: AiPostProcessSteps,
         hint: *const c_char) -> *const AiScene;
 
-    pub fn aiImportFromMemoryWithProperties(
+    pub fn aiImportFileFromMemoryWithProperties(
         buffer: *const c_char,
         length: c_uint,
         flags: AiPostProcessSteps,

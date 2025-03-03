@@ -51,6 +51,7 @@ define_properties! {
     IMPORT_FBX_READ_CAMERAS,
     IMPORT_FBX_READ_LIGHTS,
     IMPORT_FBX_READ_ANIMATIONS,
+    IMPORT_FBX_READ_TEXTURES,
     IMPORT_FBX_STRICT_MODE,
     IMPORT_FBX_PRESERVE_PIVOTS,
     IMPORT_FBX_OPTIMIZE_EMPTY_ANIMATION_CURVES,
@@ -82,9 +83,9 @@ define_properties! {
     IMPORT_COLLADA_IGNORE_UP_DIRECTION
 }
 
-bitflags! {
+mod_consts_bitflag! {
     #[repr(C)]
-    struct AiComponent: c_uint {
+    pub struct AiComponent: c_uint {
         const AICOMPONENT_NORMALS = 0x2;
         const AICOMPONENT_TANGENTS_AND_BITANGENTS = 0x4;
         const AICOMPONENT_COLORS = 0x8;
@@ -99,14 +100,14 @@ bitflags! {
     }
 }
 
-bitflags! {
+mod_consts_bitflag! {
     #[repr(C)]
-    struct AiUVTransformFlags : c_uint {
+    pub struct AiUVTransformFlags : c_uint {
         const AI_UVTRAFO_SCALING = 0x1;
         const AI_UVTRAFO_ROTATION = 0x2;
         const AI_UVTRAFO_TRANSLATION = 0x4;
-        const AI_UVTRAFO_ALL = Self::AI_UVTRAFO_SCALING.bits
-                             | Self::AI_UVTRAFO_ROTATION.bits
-                             | Self::AI_UVTRAFO_TRANSLATION.bits;
+        const AI_UVTRAFO_ALL = Self::AI_UVTRAFO_SCALING.bits()
+                             | Self::AI_UVTRAFO_ROTATION.bits()
+                             | Self::AI_UVTRAFO_TRANSLATION.bits();
     }
 }

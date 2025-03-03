@@ -1,6 +1,6 @@
 use libc::{c_uint, c_void};
 
-use types::*;
+use crate::types::*;
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

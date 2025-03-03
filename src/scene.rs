@@ -1,13 +1,13 @@
 use libc::{c_uint, c_void};
 
-use anim::*;
-use camera::*;
-use light::*;
-use material::*;
-use mesh::*;
-use metadata::*;
-use texture::*;
-use types::*;
+use crate::anim::*;
+use crate::camera::*;
+use crate::light::*;
+use crate::material::*;
+use crate::mesh::*;
+use crate::metadata::*;
+use crate::texture::*;
+use crate::types::*;
 
 #[repr(C)]
 pub struct AiNode {
@@ -21,7 +21,7 @@ pub struct AiNode {
     pub metadata: *mut AiMetadata
 }
 
-bitflags! {
+mod_consts_bitflag! {
     #[repr(C)]
     pub struct AiSceneFlags : c_uint {
         const AI_SCENE_FLAGS_INCOMPLETE = 0x1;

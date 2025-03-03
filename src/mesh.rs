@@ -1,6 +1,6 @@
 use libc::{c_float, c_uint};
 
-use types::*;
+use crate::types::*;
 
 pub const AI_MAX_FACE_INDICES: usize = 0x7fff;
 pub const AI_MAX_BONE_WEIGHTS: usize = 0x7fffffff;
@@ -30,9 +30,9 @@ pub struct AiBone {
     pub offset_matrix: AiMatrix4x4
 }
 
-bitflags! {
+mod_consts_bitflag! {
     #[repr(C)]
-    struct AiPrimitiveType: c_uint {
+    pub struct AiPrimitiveType: c_uint {
         const AIPRIMITIVETYPE_POINT = 0x1;
         const AIPRIMITIVETYPE_LINE = 0x2;
         const AIPRIMITIVETYPE_TRIANGLE = 0x4;

@@ -1,6 +1,6 @@
 use libc::c_float;
 
-use types::*;
+use crate::types::*;
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug)]

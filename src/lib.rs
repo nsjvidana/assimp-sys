@@ -15,8 +15,40 @@ pub use metadata::*;
 pub use postprocess::*;
 pub use scene::*;
 pub use texture::*;
-pub use types::*;
+pub use crate::types::*;
 pub use version::*;
+
+/// A macro that makes a bitflag struct's Self consts into consts of the module it is in.
+/// This lets the assimp crate do CONSTANT_NAME instead of Struct::CONSTANT_NAME
+macro_rules! mod_consts_bitflag {
+    (
+        $(#[$outer:meta])*
+        $vis:vis struct $BitFlags:ident: $T:ty {
+            $(
+                $(#[$inner:ident $($args:tt)*])*
+                const $Flag:tt = $value:expr;
+            )*
+        }
+
+        $($t:tt)*
+    ) => {
+        $(
+            $(#[$inner $($args)*])*
+            $vis const $Flag: $BitFlags = $BitFlags::$Flag;
+        )*
+        bitflags! {
+            $(#[$outer])*
+            $vis struct $BitFlags: $T {
+                $(
+                    $(#[$inner $($args:tt)*])*
+                    const $Flag = $value;
+                )*
+            }
+
+            $($t)*
+        }
+    };
+}
  
 mod anim;
 mod camera;

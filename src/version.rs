@@ -1,6 +1,6 @@
 use libc::{c_char, c_uint};
 
-#[link(name = "assimp")]
+#[link(name = "assimpd")]
 extern {
     pub fn aiGetLegalString() -> *const c_char;
     pub fn aiGetVersionMinor() -> c_uint;
