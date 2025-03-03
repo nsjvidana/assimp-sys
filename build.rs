@@ -35,6 +35,8 @@ fn build_lib() {
     let dst = cmake::Config::new("./libs/assimp-3.1.1")
         .configure_arg("-DASSIMP_BUILD_ASSIMP_TOOLS=OFF")
         .configure_arg("-DASSIMP_BUILD_TESTS=OFF")
-        .build();
-    println!("cargo:rustc-link-search=static={}", dst.join("lib").display());
+        .build()
+        .join("lib");
+    println!("cargo:rustc-link-search=static={}", dst.display());
+    println!("cargo:rustc-link-search=native={}", dst.display());   
 }
