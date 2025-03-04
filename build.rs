@@ -8,18 +8,11 @@ fn main() {
     let result = std::panic::catch_unwind(build_lib);
     match result {
         Err(..) => {// If current extracted lib doesn't work / doesn't exist, extract from the tar and try again.
-            match reqwest::blocking::get("https://github.com/assimp/assimp/archive/v3.1.1.tar.gz") {
-                Ok(mut resp) => {
-                    let path = Path::new("./libs/assimp-3.1.1.tar.gz");
-                    std::fs::create_dir_all(path.parent().unwrap()).unwrap();
-                    let mut tar_out = File::create(path)
-                        .expect("Failed to create assimp tar file");
-                    resp.copy_to(&mut tar_out).expect("Failed to copy data to assimp tar file");
-                },
-                Err(e) => panic!("Failed downloading tar file. Error:\n    {:?}", e),
-            }
+            // Remove curr lib directory since it might be corrupted
+            let lib_dir = Path::new("./libs/assimp-3.1.1");
+            let _ = std::fs::remove_dir_all(lib_dir);
 
-            // Unpack the tar file & try building assimp again
+            // Unpack tar and build again.
             let tar_gz = File::open("./libs/assimp-3.1.1.tar.gz")
                 .expect("Couldn't open assimp-3.1.1.tar.gz");
             let tar = GzDecoder::new(tar_gz);
@@ -32,11 +25,16 @@ fn main() {
 }
 
 fn build_lib() {
+    cmake::Config::new("./libs/assimp-3.1.1")
+        .configure_arg("-DASSIMP_BUILD_ASSIMP_TOOLS=OFF")
+        .configure_arg("-DASSIMP_BUILD_TESTS=OFF")
+        .build();
     let dst = cmake::Config::new("./libs/assimp-3.1.1")
         .configure_arg("-DASSIMP_BUILD_ASSIMP_TOOLS=OFF")
         .configure_arg("-DASSIMP_BUILD_TESTS=OFF")
+        .configure_arg("-DASSIMP_BUILD_STATIC_LIB=ON")
         .build()
         .join("lib");
     println!("cargo:rustc-link-search=static={}", dst.display());
-    println!("cargo:rustc-link-search=native={}", dst.display());   
+    println!("cargo:rustc-link-search=native={}", dst.display());
 }
