@@ -23,7 +23,7 @@ pub type AiBool = c_int;
 pub const AI_FALSE : AiBool = 0;
 pub const AI_TRUE : AiBool = 1;
 
-#[link(name = "assimpd")]
+#[link(name = "assimp")]
 extern {
     pub fn aiImportFile(
         file: *const c_char,

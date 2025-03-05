@@ -118,7 +118,7 @@ pub struct AiMaterial {
     pub num_allocated: c_uint
 }
 
-#[link(name = "assimpd")]
+#[link(name = "assimp")]
 extern {
     pub fn aiGetMaterialProperty(
         mat: *const AiMaterial,
