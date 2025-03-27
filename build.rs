@@ -12,7 +12,9 @@ fn main() {
 
     // Compile assimp from source
     // Disable unnecessary stuff, it takes long enough to compile already
-    let dst = Config::new("assimp")
+    let mut build_config = Config::new("assimp");
+    let debug_postfix = if build_config.get_profile() == "Debug" { "d" } else { "" };// debug postfix used in linking
+    let dst = build_config
         .define("ASSIMP_BUILD_ASSIMP_TOOLS", "OFF")
         .define("ASSIMP_BUILD_TESTS", "OFF")
         .define("ASSIMP_INSTALL_PDB", "OFF")
@@ -23,7 +25,6 @@ fn main() {
     println!("cargo:rustc-link-search=native={}", dst.join("lib").display());
 
     // Link to assimp and its dependencies
-    let debug_postfix = if env::var("DEBUG").unwrap() == "true" { "d" } else { "" };
     println!("cargo:rustc-link-lib=static=assimp{}", debug_postfix);
     println!("cargo:rustc-link-lib=static=IrrXML{}", debug_postfix);
     if !pkg_config::find_library("zlib").is_ok() {
