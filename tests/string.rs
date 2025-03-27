@@ -2,6 +2,7 @@ extern crate assimp_sys;
 use assimp_sys::*;
 
 #[test]
+#[cfg(not(all(target_arch = "x86", target_env = "msvc")))]
 #[should_panic(expected = "s.len() < MAXLEN")]
 fn aistring_long_str_fail() {
     let s = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgh\

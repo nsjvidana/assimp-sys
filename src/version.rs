@@ -1,6 +1,5 @@
-use libc::{c_char, c_uint};
+use std::os::raw::{c_char, c_uint};
 
-#[link(name = "assimp")]
 extern {
     pub fn aiGetLegalString() -> *const c_char;
     pub fn aiGetVersionMinor() -> c_uint;

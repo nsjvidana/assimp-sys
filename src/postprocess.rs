@@ -1,5 +1,5 @@
-use libc::c_uint;
- 
+use std::os::raw::c_uint;
+
 bitflags! {
     #[repr(C)]
     pub struct AiPostProcessSteps: c_uint {
@@ -30,34 +30,33 @@ bitflags! {
         const AIPROCESS_SPLIT_BY_BONE_COUNT = 0x2000000;
         const AIPROCESS_DEBONE = 0x4000000;
 
-        const AIPROCESS_CONVERT_TO_LEFT_HANDED = Self::AIPROCESS_MAKE_LEFT_HANDED.bits
-                                               | Self::AIPROCESS_FLIP_UVS.bits
-                                               | Self::AIPROCESS_FLIP_WINDING_ORDER.bits;
+        const AIPROCESS_CONVERT_TO_LEFT_HANDED = AIPROCESS_MAKE_LEFT_HANDED.bits
+                                               | AIPROCESS_FLIP_UVS.bits
+                                               | AIPROCESS_FLIP_WINDING_ORDER.bits;
 
-        const AIPROCESS_TARGET_REALTIME_FAST = Self::AIPROCESS_CALC_TANGENT_SPACE.bits
-                                             | Self::AIPROCESS_GEN_NORMALS.bits
-                                             | Self::AIPROCESS_JOIN_IDENTICAL_VERTICES.bits
-                                             | Self::AIPROCESS_TRIANGULATE.bits
-                                             | Self::AIPROCESS_GEN_UV_COORDS.bits
-                                             | Self::AIPROCESS_SORT_BY_PTYPE.bits;
+        const AIPROCESS_TARGET_REALTIME_FAST = AIPROCESS_CALC_TANGENT_SPACE.bits
+                                             | AIPROCESS_GEN_NORMALS.bits
+                                             | AIPROCESS_JOIN_IDENTICAL_VERTICES.bits
+                                             | AIPROCESS_TRIANGULATE.bits
+                                             | AIPROCESS_GEN_UV_COORDS.bits
+                                             | AIPROCESS_SORT_BY_PTYPE.bits;
 
-        const AIPROCESS_TARGET_REALTIME_QUALITY = Self::AIPROCESS_CALC_TANGENT_SPACE.bits
-                                                | Self::AIPROCESS_GEN_SMOOTH_NORMALS.bits
-                                                | Self::AIPROCESS_JOIN_IDENTICAL_VERTICES.bits
-                                                | Self::AIPROCESS_IMPROVE_CACHE_LOCALITY.bits
-                                                | Self::AIPROCESS_LIMIT_BONE_WEIGHTS.bits
-                                                | Self::AIPROCESS_REMOVE_REDUNDANT_MATERIALS.bits
-                                                | Self::AIPROCESS_SPLIT_LARGE_MESHES.bits
-                                                | Self::AIPROCESS_TRIANGULATE.bits
-                                                | Self::AIPROCESS_GEN_UV_COORDS.bits
-                                                | Self::AIPROCESS_SORT_BY_PTYPE.bits
-                                                | Self::AIPROCESS_FIND_DEGENERATES.bits
-                                                | Self::AIPROCESS_FIND_INVALID_DATA.bits;
+        const AIPROCESS_TARGET_REALTIME_QUALITY = AIPROCESS_CALC_TANGENT_SPACE.bits
+                                                | AIPROCESS_GEN_SMOOTH_NORMALS.bits
+                                                | AIPROCESS_JOIN_IDENTICAL_VERTICES.bits
+                                                | AIPROCESS_IMPROVE_CACHE_LOCALITY.bits
+                                                | AIPROCESS_LIMIT_BONE_WEIGHTS.bits
+                                                | AIPROCESS_REMOVE_REDUNDANT_MATERIALS.bits
+                                                | AIPROCESS_SPLIT_LARGE_MESHES.bits
+                                                | AIPROCESS_TRIANGULATE.bits
+                                                | AIPROCESS_GEN_UV_COORDS.bits
+                                                | AIPROCESS_SORT_BY_PTYPE.bits
+                                                | AIPROCESS_FIND_DEGENERATES.bits
+                                                | AIPROCESS_FIND_INVALID_DATA.bits;
 
-        const AIPROCESS_TARGET_REALTIME_MAX_QUALITY = Self::AIPROCESS_TARGET_REALTIME_QUALITY.bits
-                                                    | Self::AIPROCESS_FIND_INSTANCES.bits
-                                                    | Self::AIPROCESS_VALIDATE_DATA_STRUCTURE.bits
-                                                    | Self::AIPROCESS_OPTIMIZE_MESHES.bits;
+        const AIPROCESS_TARGET_REALTIME_MAX_QUALITY = AIPROCESS_TARGET_REALTIME_QUALITY.bits
+                                                    | AIPROCESS_FIND_INSTANCES.bits
+                                                    | AIPROCESS_VALIDATE_DATA_STRUCTURE.bits
+                                                    | AIPROCESS_OPTIMIZE_MESHES.bits;
     }
 }
-

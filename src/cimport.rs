@@ -1,6 +1,7 @@
-use libc::{c_char, c_float, c_int, c_uint, c_void};
+use std::os::raw::{c_char, c_float, c_int, c_uint, c_void};
 
 use cfileio::*;
+use importerdesc::*;
 use postprocess::*;
 use scene::*;
 use types::*;
@@ -10,20 +11,19 @@ pub type AiLogStreamCallback = Option<unsafe extern "system" fn(*const c_char, *
 #[repr(C)]
 pub struct AiLogStream {
     pub callback: AiLogStreamCallback,
-    pub user: *mut c_void
+    pub user: *mut c_void,
 }
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug)]
 pub struct AiPropertyStore {
-    pub sentinel: c_char
+    pub sentinel: c_char,
 }
 
 pub type AiBool = c_int;
-pub const AI_FALSE : AiBool = 0;
-pub const AI_TRUE : AiBool = 1;
+pub const AI_FALSE: AiBool = 0;
+pub const AI_TRUE: AiBool = 1;
 
-#[link(name = "assimp")]
 extern {
     pub fn aiImportFile(
         file: *const c_char,
@@ -40,13 +40,13 @@ extern {
         fs: *mut AiFileIO,
         props: *const AiPropertyStore) -> *const AiScene;
 
-    pub fn aiImportFromMemory(
+    pub fn aiImportFileFromMemory(
         buffer: *const c_char,
         length: c_uint,
         flags: AiPostProcessSteps,
         hint: *const c_char) -> *const AiScene;
 
-    pub fn aiImportFromMemoryWithProperties(
+    pub fn aiImportFileFromMemoryWithProperties(
         buffer: *const c_char,
         length: c_uint,
         flags: AiPostProcessSteps,
@@ -149,4 +149,9 @@ extern {
 
     pub fn aiIdentityMatrix4(
         matrix: *mut AiMatrix4x4);
+
+    pub fn aiGetImportFormatCount() -> usize;
+
+    pub fn aiGetImportFormatDescription(
+        index: usize) -> *const AiImporterDesc;
 }

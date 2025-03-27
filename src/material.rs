@@ -1,4 +1,4 @@
-use libc::{c_char, c_float, c_int, c_uint};
+use std::os::raw::{c_char, c_float, c_int, c_uint};
 
 use types::*;
 
@@ -12,7 +12,7 @@ pub enum AiTextureOp {
     Subtract = 0x2,
     Divide = 0x3,
     SmoothAdd = 0x4,
-    SignedAdd = 0x5
+    SignedAdd = 0x5,
 }
 
 #[repr(C)]
@@ -21,7 +21,7 @@ pub enum AiTextureMapMode {
     Wrap = 0x0,
     Clamp = 0x1,
     Mirror = 0x2,
-    Decal = 0x3
+    Decal = 0x3,
 }
 
 #[repr(C)]
@@ -32,7 +32,7 @@ pub enum AiTextureMapping {
     Cylinder = 0x2,
     Box = 0x3,
     Plane = 0x4,
-    Other = 0x5
+    Other = 0x5,
 }
 
 #[repr(C)]
@@ -50,7 +50,7 @@ pub enum AiTextureType {
     Displacement = 0x9,
     Lightmap = 0xA,
     Reflection = 0xB,
-    Unknown = 0xC
+    Unknown = 0xC,
 }
 
 #[repr(C)]
@@ -65,12 +65,12 @@ pub enum AiShadingMode {
     Minnaert = 0x7,
     CookTorrance = 0x8,
     NoShading = 0x9,
-    Fresnel = 0xA
+    Fresnel = 0xA,
 }
 
 bitflags! {
     #[repr(C)]
-    struct AiTextureFlags: c_uint {
+    pub struct AiTextureFlags: c_uint {
         const AITEXTUREFLAG_INVERT = 0x1;
         const AITEXTUREFLAG_USE_ALPHA = 0x2;
         const AITEXTUREFLAG_IGNORE_ALPHA = 0x4;
@@ -81,7 +81,7 @@ bitflags! {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum AiBlendMode {
     Default = 0x0,
-    Additive = 0x1
+    Additive = 0x1,
 }
 
 #[repr(C, packed)]
@@ -89,16 +89,17 @@ pub enum AiBlendMode {
 pub struct AiUVTransform {
     pub translation: AiVector2D,
     pub scaling: AiVector2D,
-    pub rotation: c_float
+    pub rotation: c_float,
 }
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum AiPropertyTypeInfo {
     Float = 0x1,
+    Double = 0x2,
     String = 0x3,
     Integer = 0x4,
-    Buffer = 0x5
+    Buffer = 0x5,
 }
 
 #[repr(C)]
@@ -108,17 +109,16 @@ pub struct AiMaterialProperty {
     pub index: c_uint,
     pub data_length: c_uint,
     pub property_type: AiPropertyTypeInfo,
-    pub data: *mut c_char
+    pub data: *mut c_char,
 }
 
 #[repr(C)]
 pub struct AiMaterial {
     pub properties: *mut *mut AiMaterialProperty,
     pub num_properties: c_uint,
-    pub num_allocated: c_uint
+    pub num_allocated: c_uint,
 }
 
-#[link(name = "assimp")]
 extern {
     pub fn aiGetMaterialProperty(
         mat: *const AiMaterial,

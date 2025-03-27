@@ -1,4 +1,4 @@
-use libc::{c_char, c_uint};
+use std::os::raw::{c_char, c_uint};
 
 bitflags! {
     #[repr(C)]
@@ -22,5 +22,10 @@ pub struct AiImporterDesc {
     pub min_minor: c_uint,
     pub max_major: c_uint,
     pub max_minor: c_uint,
-    pub file_extensions: *const c_char
+    pub file_extensions: *const c_char,
+}
+
+extern {
+    pub fn aiGetImporterDesc(
+        extension: *const c_char) -> *const AiImporterDesc;
 }

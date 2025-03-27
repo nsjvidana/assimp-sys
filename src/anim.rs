@@ -1,4 +1,4 @@
-use libc::{c_double, c_uint};
+use std::os::raw::{c_double, c_uint};
 
 use types::*;
 
@@ -6,21 +6,30 @@ use types::*;
 #[derive(Clone, Copy, Debug)]
 pub struct AiVectorKey {
     pub time: c_double,
-    pub value: AiVector3D
+    pub value: AiVector3D,
 }
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug)]
 pub struct AiQuatKey {
     pub time: c_double,
-    pub velue: AiQuaternion
+    pub value: AiQuaternion,
 }
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug)]
 pub struct AiMeshKey {
     pub time: c_double,
-    pub value: c_uint
+    pub value: c_uint,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Debug)]
+pub struct AiMeshMorphKey {
+    pub time: c_double,
+    pub values: *mut c_uint,
+    pub weights: *mut c_double,
+    pub num_values_and_weights: c_uint,
 }
 
 #[repr(C)]
@@ -29,7 +38,7 @@ pub enum AiAnimBehaviour {
     Default = 0,
     Constant = 1,
     Linear = 2,
-    Repeat = 3
+    Repeat = 3,
 }
 
 #[repr(C)]
@@ -42,14 +51,21 @@ pub struct AiNodeAnim {
     pub num_scaling_keys: c_uint,
     pub scaling_keys: *mut AiVectorKey,
     pub pre_state: AiAnimBehaviour,
-    pub post_state: AiAnimBehaviour
+    pub post_state: AiAnimBehaviour,
 }
 
 #[repr(C)]
 pub struct AiMeshAnim {
     pub name: AiString,
     pub num_keys: c_uint,
-    pub keys: *mut AiMeshKey
+    pub keys: *mut AiMeshKey,
+}
+
+#[repr(C)]
+pub struct AiMeshMorphAnim {
+    pub name: AiString,
+    pub num_keys: c_uint,
+    pub keys: *mut AiMeshMorphKey,
 }
 
 #[repr(C)]
@@ -60,5 +76,7 @@ pub struct AiAnimation {
     pub num_channels: c_uint,
     pub channels: *mut *mut AiNodeAnim,
     pub num_mesh_channels: c_uint,
-    pub mesh_channels: *mut *mut AiMeshAnim
+    pub mesh_channels: *mut *mut AiMeshAnim,
+    pub num_morph_mesh_channels: c_uint,
+    pub morph_mesh_channels: *mut *mut AiMeshMorphAnim,
 }

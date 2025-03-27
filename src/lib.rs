@@ -1,6 +1,5 @@
 #[macro_use]
 extern crate bitflags;
-extern crate libc;
 
 pub use anim::*;
 pub use camera::*;
@@ -17,7 +16,7 @@ pub use scene::*;
 pub use texture::*;
 pub use types::*;
 pub use version::*;
- 
+
 mod anim;
 mod camera;
 mod cexport;

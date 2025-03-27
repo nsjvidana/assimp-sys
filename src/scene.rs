@@ -1,4 +1,4 @@
-use libc::{c_uint, c_void};
+use std::os::raw::{c_uint, c_void};
 
 use anim::*;
 use camera::*;
@@ -18,7 +18,7 @@ pub struct AiNode {
     pub children: *mut *mut AiNode,
     pub num_meshes: c_uint,
     pub meshes: *mut c_uint,
-    pub metadata: *mut AiMetadata
+    pub metadata: *mut AiMetadata,
 }
 
 bitflags! {
@@ -29,6 +29,7 @@ bitflags! {
         const AI_SCENE_FLAGS_VALIDATION_WARNING = 0x4;
         const AI_SCENE_FLAGS_NON_VERBOSE_FORMAT = 0x8;
         const AI_SCENE_FLAGS_TERRAIN = 0x10;
+        const AI_SCENE_FLAGS_ALLOW_SHARED = 0x20;
     }
 }
 
@@ -48,5 +49,26 @@ pub struct AiScene {
     pub lights: *mut *mut AiLight,
     pub num_cameras: c_uint,
     pub cameras: *mut *mut AiCamera,
-    private: *const c_void
+    private: *const c_void,
+}
+
+impl AiScene {
+    pub fn has_meshes(&self) -> bool {
+        !self.meshes.is_null() && self.num_meshes > 0
+    }
+    pub fn has_materials(&self) -> bool {
+        !self.materials.is_null() && self.num_materials > 0
+    }
+    pub fn has_lights(&self) -> bool {
+        !self.lights.is_null() && self.num_lights > 0
+    }
+    pub fn has_textures(&self) -> bool {
+        !self.textures.is_null() && self.num_textures > 0
+    }
+    pub fn has_cameras(&self) -> bool {
+        !self.cameras.is_null() && self.num_cameras > 0
+    }
+    pub fn has_animations(&self) -> bool {
+        !self.animations.is_null() && self.num_animations > 0
+    }
 }
